@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitobni o‘chirish</title>
+</head>
+<body>
+    <h1>Kitobni o‘chirish</h1>
+    <p>Haqiqatan ham "{{ book.name }}" kitobini o‘chirmoqchimisiz?</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Ha, o‘chirish</button>
+        <a href="{% url 'books-list' %}"><button type="button">Yo‘q, bekor qilish</button></a>
+    </form>
+</body>
+</html>

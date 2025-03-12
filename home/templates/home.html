@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitoblar Roʻyxati</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .book-list {
+            list-style: none;
+            padding: 0;
+        }
+        .book-list li {
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            width: 50%;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Kitoblar Roʻyxati</h1>
+    
+    <!-- Qidiruv formasi -->
+    <form method="GET" action="{% url 'books-list' %}">
+        <input type="text" name="t" placeholder="Kitob nomini kiriting" value="{{ request.GET.t }}">
+        <button type="submit">🔍 Qidirish</button>
+    </form>
+    
+    <!-- Kitob qoʻshish tugmasi -->
+    <a href="{% url 'books-create' %}"><button style="background-color: #007bff; color: white;">+ Kitob qoʻshish</button></a>
+    
+    <hr>
+    
+    <!-- Kitoblar roʻyxati -->
+    {% if books %}
+        <ul class="book-list">
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.name }}</strong>
+                    <br>
+                    <a href="{% url 'books-update' book.id %}"><button class="btn-edit">✏️ Tahrirlash</button></a>
+                    <a href="{% url 'books-delete' book.id %}"><button class="btn-delete">🗑️ Oʻchirish</button></a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>📖 Hech qanday kitob topilmadi.</p>
+    {% endif %}
+</body>
+</html>
